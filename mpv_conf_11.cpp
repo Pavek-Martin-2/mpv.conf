@@ -25,7 +25,7 @@ using namespace std;
 	command line prehravac "mpv.exe"
     
     radky souboru mpv.conf
-    radek 1 jsem vymislel jako kontrolni, aby se zjistilo co je aktualne nastaveno
+    radek 1 jsem vymyslel jako kontrolni, aby se zjistilo co je aktualne nastaveno
     program bude cyklovat mezi pri kazdem jeho dalsim spusteni mezi on/off
     vzdy vypise aktualni obsah souboru a bude cekat v pause na ukonceni
     
@@ -58,7 +58,7 @@ using namespace std;
    // sem se moho pridavat jeste dalsi radky, pokud by bylo potreba
    };
 
-    int aa,bb, d_pole;
+    int aa, bb, d_pole;
 	
     //funkce zapis config #on
     void zapis_on() {
@@ -78,6 +78,8 @@ using namespace std;
 		outfile.close();
 		} else {
         cout<<"chyba pri vytvareni souboru"<<endl;
+        system("pause");
+        exit(1); // opraveno 25.11.2025
         }
     }
     
@@ -85,7 +87,7 @@ using namespace std;
     funkce zapis config #off
 	radky ktere zacinaji znakem # tak ty bude program "mpv.exe" pri nacetni sve konfigurace
     ignorovat jako zakomentovane, jako kdyby tam nebyly, je to podobne jako treba
-    ve skriptu v linuxu, radek tam je aby bylo vydet co tam ma bejt ale nebude se zprocovavat
+    ve skriptu v linuxu, radek tam je aby bylo vydet co tam ma bejt ale nebude se zpracovavat
 	a preskoci se, muzou se samozdrejme tako preskocit i vsechny radky souboru
 	*/
     void zapis_off() {
@@ -105,6 +107,8 @@ using namespace std;
 		outfile.close();
 		} else {
         cout<<"chyba pri vytvareni souboru"<<endl;
+        system("pause");
+        exit(1); // opraveno 25.11.2025
         }
     }
       
@@ -118,12 +122,12 @@ int main() {
     // soubor neexistuje, vytvorim novy
     zapis_on();
     system("pause");
-    return 0; // tady uz je potreba skoncit a nepustit to dal na dalsi podminky
+    exit(0); // tady uz je potreba skoncit a nepustit to dal na dalsi podminky
 	// protoze by se neco vykonavalo 2x     
     } else {
     // soubor uz existuje, nacte z nej hodnotu prvniho radku #on nebo #off (pripadne error)
     infile>>stavovy_radek_conf; // kontrolni prvni radek, jak je nastavena konfigurace z predchoziho spusteni
-    infile.close();    
+    infile.close();  
     }
     
     // prepinani stavu podle necteneho prvniho radku conf souboru on->off a off->on (cyklovani)
